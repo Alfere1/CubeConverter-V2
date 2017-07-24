@@ -54,12 +54,29 @@ KanaisCube()
 		SwitchPagesRight := [Fill[1]+SwitchPages[1], Fill[2]]
 	}
 	
+	ColumnCount := 0
+	RowCount := 0
+	
 	Loop
 	{
-		RowCount := (Floor((A_Index-1)/Columns))*ItemSize
-		StringRight, ColumnCount, A_Index, 1
-		If (ColumnCount == 0)
-			ColumnCount := 10
+		If (ItemSize == 2)
+		{
+			
+			If (ColumnCount > 9)
+			{
+				RowCount := 0
+				ColumnCount := %ColumCount%+%ItemSize%
+			}
+		}
+		Else
+		{
+			If (ColumnCount > 5)
+			{
+				ColumnCount := 0
+				++RowCount
+			}
+			++ColumnCount
+		}
 		XClick := TopLeftInv[1]+SlotX*(ColumnCount)
 		YClick := TopLeftInv[2]+SlotY*(RowCount)
 		MouseClick, right, XClick, YClick
